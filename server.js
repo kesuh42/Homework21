@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === "production") {
 
 //MongoDB
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/googlebooks",
+  process.env.MONGODB_URI || "mongodb://kesuh42:oawoaw42.mlab.com:29609/heroku_k9sq720n",
   { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true }
 );
 
