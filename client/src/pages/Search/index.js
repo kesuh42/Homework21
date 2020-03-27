@@ -8,7 +8,25 @@ function Search() {
 
   useEffect(() =>{
     if (formState.length > 0) {
-      API.search(formState).then((result) => setObjectState(result.data.items))
+      API.search(formState).then((result) => {
+        const APIArray = result.data.items
+        let objectArray = []
+
+        for (let i of APIArray) {
+          const object = i.volumeInfo
+
+          objectArray.push({
+            title: object.title,
+            authors: object.authors? object.authors : [] ,
+            description: object.description? object.description : "" ,
+            image: object.imageLinks? object.imageLinks.thumbnail : "" ,
+            link: object.infoLink
+          })
+        }
+
+        setObjectState(objectArray)
+        
+      })
     }
   }, [formState])
 
@@ -16,22 +34,8 @@ function Search() {
   function handleSave(event) {
     //Retrieve the index recorded in the rendered html. Points to the corresponding object in the objectState array
     const index = event.target.parentElement.dataset.objectid
-    const targetObject = objectState[index].volumeInfo
-    
-    console.log(targetObject)
 
-    //Construct data object to send to the database
-    const data = {
-      title: targetObject.title,
-      authors: targetObject.authors,
-      description: targetObject.description,
-      image: targetObject.imageLinks.thumbnail,
-      link: targetObject.infoLink
-    }
-
-    console.log(data)
-
-    API.post(data).then((res, err) => {
+    API.post(objectState[index]).then((res, err) => {
       console.log("post successful")
       console.log(res)
     })
@@ -49,16 +53,15 @@ function Search() {
 
       <div className="results">
         {objectState.length > 0 ?
-            objectState.map((value, index) => {
-              const bookInfo = value.volumeInfo
+            objectState.map((values, index) => {
               return (
                 <div className="bookinfo" data-objectid={index}>
-                  <h4> {bookInfo.title} </h4>
-                  <img src={bookInfo.imageLinks? bookInfo.imageLinks.thumbnail : ""}></img>
-                  <div> <strong>Written by:</strong> {bookInfo.authors? bookInfo.authors.map((value, index) => {return <div>{value}</div>}) : "No author listed!"}</div>
-                  <div> <strong>Description:</strong> {bookInfo.description ? bookInfo.description : "No description!"} </div>
+                  <h4> {values.title} </h4>
+                  <img src={values.link !== ""? values.image : ""}></img>
+                  <div> <strong>Written by:</strong> {values.authors.length !== 0 ? values.authors.map((value, index) => {return <div>{value}</div>}) : "No author listed!"}</div>
+                  <div> <strong>Description:</strong> {values.description !== "" ? values.description : "No description!"} </div>
                   <br />
-                  <a href={bookInfo.infoLink} className="btn btn-primary resultbutton">Book Information Page</a>
+                  <a href={values.link} className="btn btn-primary resultbutton">Book Information Page</a>
                   <button className="btn btn-primary" onClick={event => handleSave(event)}>Save</button>
                 </div>
               )
