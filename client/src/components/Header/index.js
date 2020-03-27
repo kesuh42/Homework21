@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 
 function Header() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light header">
       <Link className="navbar-brand" to="/">
         Google Books Search
       </Link>

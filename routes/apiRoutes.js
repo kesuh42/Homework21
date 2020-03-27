@@ -7,4 +7,11 @@ router.get("/books", (req, res) => {
     .catch(err => res.status(422).end());
 });
 
+router.post("/post", (req, res) => {
+  console.log(req.body)
+  db.Book.create(req.body)
+    .then(books => res.json(books))
+    .catch(err => res.status(422).end());
+});
+
 module.exports = router;
