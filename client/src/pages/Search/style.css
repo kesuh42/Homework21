@@ -1,0 +1,21 @@
+.search {
+  width: calc(100% - 40px);
+  border: 3px solid black;
+  padding: 20px;
+  margin: 20px;
+}
+
+.results {
+  width: calc(100% - 40px);
+  border: 3px solid black;
+  padding: 20px;
+  margin: 20px;
+}
+
+.bookinfo {
+  text-align: left;
+  width: calc(100% - 40px);
+  border: 3px solid black;
+  padding: 20px;
+  margin: 20px;
+}
