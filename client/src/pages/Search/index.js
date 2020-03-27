@@ -43,7 +43,7 @@ function Search() {
         <h4 className="booksearch">Book Search</h4>
         <div>Type your search query here</div>
         <form className="form" onSubmit={(event) => event.preventDefault()}>
-        <input className="form-control" type="text" onChange={(event) => setFormState(event.target.value)}/>
+        <input className="form-control" type="text" onChange={event => setFormState(event.target.value)}/>
         </form>
       </div>
 
@@ -55,8 +55,8 @@ function Search() {
                 <div className="bookinfo" data-objectid={index}>
                   <h4> {bookInfo.title} </h4>
                   <img src={bookInfo.imageLinks? bookInfo.imageLinks.thumbnail : ""}></img>
-                  <div> {bookInfo.authors? bookInfo.authors.map((value, index) => {return <div>{value}</div>}) : "No author listed!"}</div>
-                  <div> {bookInfo.description ? bookInfo.description : "No description!"} </div>
+                  <div> <strong>Written by:</strong> {bookInfo.authors? bookInfo.authors.map((value, index) => {return <div>{value}</div>}) : "No author listed!"}</div>
+                  <div> <strong>Description:</strong> {bookInfo.description ? bookInfo.description : "No description!"} </div>
                   <br />
                   <a href={bookInfo.infoLink} className="btn btn-primary resultbutton">Book Information Page</a>
                   <button className="btn btn-primary" onClick={event => handleSave(event)}>Save</button>

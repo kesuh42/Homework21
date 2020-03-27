@@ -14,4 +14,11 @@ router.post("/post", (req, res) => {
     .catch(err => res.status(422).end());
 });
 
+router.delete("/delete/:id", (req, res) => {
+  console.log(req.params);
+  db.Book.deleteOne({_id: req.params.id})
+    .then(books => res.json(books))
+    .catch(err => res.status(422).end());
+})
+
 module.exports = router;
